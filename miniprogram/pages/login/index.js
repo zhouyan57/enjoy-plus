@@ -22,8 +22,14 @@ Page({
     return valid
   },
   // 获取验证码的方法
-  getCode() {
+  async getCode() {
     // 1. 验证手机号的合法性
     if (!this.verifyMobile()) return
+    // 2. 根据手机号发送请求到服务器得到验证码
+    const { code, data } = await wx.http.get(`/code?mobile=${this.data.mobile.trim()}`)
+    if (code !== 10000) return wx.utils.toast()
+    console.log(data);
+    // 3. 将倒计时开启
+    this.setData({ countDownVisible: true })
   }
 })
