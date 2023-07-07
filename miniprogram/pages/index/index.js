@@ -1,10 +1,9 @@
 
 
 Page({
-  onLoad() {
+  async onLoad() {
     // 发送网络请求
-    wx.http.get('/announcement').then((res) => {
-      console.log(res);
-    })
+    const res = await wx.http.get('/announcement')
+    console.log(res);
   }
 })
