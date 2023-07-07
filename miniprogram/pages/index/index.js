@@ -2,8 +2,16 @@
 
 Page({
   async onLoad() {
-    // 发送网络请求
-    const res = await wx.http.get('/announcement')
-    console.log(res);
+    this.getNotifyList()
+  },
+  // 获取公告列表
+  async getNotifyList() {
+    const { code, message, data: notifyList } = await wx.http.get('/announcement')
+    // 判断响应的状态
+    if (code !== 10000) return wx.utils.toast(message)
+    // 保存数据
+    this.setData({
+      notifyList
+    })
   }
 })
