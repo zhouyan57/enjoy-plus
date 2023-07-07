@@ -9,5 +9,8 @@ const utils = {
     })
   }
 }
+// 将工具函数对象挂在到 wx 实例上
+wx.utils = utils
+
 // 暴露工具对象
 export default utils
