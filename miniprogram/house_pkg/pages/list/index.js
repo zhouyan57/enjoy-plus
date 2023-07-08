@@ -3,9 +3,13 @@ Page({
     dialogVisible: false,
   },
 
-  onLoad() {
-    // 目前该段代码只用于测试登录
-    wx.http.get('/room')
+  async onLoad() {
+    try {
+      // 目前该段代码只用于测试登录 请求一个需要 token 的路径
+      await wx.http.get('/room')
+    } catch (err) {
+      wx.utils.toast(err.message)
+    }
   },
 
   swipeClose(ev) {

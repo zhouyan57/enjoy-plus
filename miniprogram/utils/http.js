@@ -32,6 +32,8 @@ http.intercept.response = async ({ data, statusCode, config }) => {
       })
       return
     }
+    // 判断：是否存在 refreshToken
+    if (!getApp().refreshToken) return Promise.reject(new Error('未登录'))
     // token 过期，需要请求延时的接口
     const { data } = await http({
       url: '/refreshToken',
