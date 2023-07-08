@@ -7,7 +7,13 @@ http.baseURL = 'https://live-api.itheima.net'
 http.intercept.request = (config) => {
   // 在请求拦截器添加一个 token
   const token = getApp().token
-  if (token) config.header = { Authorization: token }
+  // 创建一个管理所有额外属性的对象
+  const defaultHeader = {
+    client: 'app'
+  }
+  if (token) defaultHeader.Authorization = token
+  // 将所有的属性与 config 中的 header 进行合并
+  config.header = Object.assign(defaultHeader, config.header)
   return config
 }
 
