@@ -64,10 +64,6 @@ Page({
     const { code: resCode, data } = await wx.http.post('/login', { code, mobile })
     if (resCode !== 10000) return wx.utils.toast()
     // 3. 保存 token （storage, app)
-    // 拼接 token
-    const token = 'Bearer ' + data.token
-    wx.setStorageSync('token', token)
-    getApp().token = token
-
+    getApp().setToken(data.token)
   }
 })
