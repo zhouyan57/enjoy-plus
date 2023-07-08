@@ -3,6 +3,14 @@ import http from 'wechat-http'
 // 设置请求的基地址
 http.baseURL = 'https://live-api.itheima.net'
 
+// 添加请求拦截器
+http.intercept.request = (config) => {
+  // 在请求拦截器添加一个 token
+  const token = getApp().token
+  if (token) config.header = { Authorization: token }
+  return config
+}
+
 // 添加响应拦截器：返回服务器的数据
 http.intercept.response = ({ data }) => {
   return data
