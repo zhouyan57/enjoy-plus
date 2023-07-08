@@ -18,7 +18,7 @@ http.intercept.request = (config) => {
 }
 
 // 添加响应拦截器：返回服务器的数据
-http.intercept.response = async ({ data, statusCode }) => {
+http.intercept.response = async ({ data, statusCode, config }) => {
   // 判断状态码是否为 401
   if (statusCode === 401) {
     // token 过期，需要请求延时的接口
@@ -32,6 +32,15 @@ http.intercept.response = async ({ data, statusCode }) => {
     const { token, refreshToken } = data
     // 保存 token 和 refreshToken
     getApp().setToken(token, refreshToken)
+    // 重新请求之前未完成的请求（请求信息：response.config）
+    const res = await http(
+      Object.assign(config, {
+        header: {
+          Authorization: 'Bearer ' + token,
+        }
+      })
+    )
+    return res
   }
   return data
 }
