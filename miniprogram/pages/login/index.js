@@ -71,7 +71,7 @@ Page({
     const { code: resCode, data } = await wx.http.post('/login', { code, mobile })
     if (resCode !== 10000) return wx.utils.toast()
     // 3. 保存 token （storage, app)
-    getApp().setToken(data.token)
+    getApp().setToken(data.token, data.refreshToken)
     // 4. 重定向到之前的页面
     wx.redirectTo({
       url: '/' + this.data.redirectURL
