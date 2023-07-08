@@ -1,3 +1,5 @@
+// 定义一个验证码变量：
+let secret_code = ''
 Page({
   data: {
     // 手机号
@@ -29,7 +31,15 @@ Page({
     const { code, data } = await wx.http.get(`/code?mobile=${this.data.mobile.trim()}`)
     if (code !== 10000) return wx.utils.toast()
     console.log(data);
+    // 保存验证码
+    secret_code = data.code
     // 3. 将倒计时开启
     this.setData({ countDownVisible: true })
+  },
+  // 点击下方文本时，将验证码复制到剪贴板中
+  copyCode() {
+    wx.setClipboardData({
+      data: secret_code
+    })
   }
 })
