@@ -7,6 +7,13 @@ Page({
     // 验证码
     code: '',
     countDownVisible: false,
+    // 重定向的参数
+    redirectURL: ''
+  },
+
+  onLoad({ redirectURL }) {
+    // 获取登录页面的参数
+    this.setData({ redirectURL })
   },
 
   countDownChange(ev) {
@@ -65,5 +72,9 @@ Page({
     if (resCode !== 10000) return wx.utils.toast()
     // 3. 保存 token （storage, app)
     getApp().setToken(data.token)
+    // 4. 重定向到之前的页面
+    wx.redirectTo({
+      url: '/' + this.data.redirectURL
+    })
   }
 })
