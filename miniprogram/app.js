@@ -8,7 +8,7 @@ App({
     // 打开页面时获取 token
     this.getToken('token')
     // 打开页面时获取 refreshToken
-    this.getRefreshToken('refreshToken')
+    this.getToken('refreshToken')
   },
   // 获取 token
   getToken(key) {
@@ -24,7 +24,7 @@ App({
   // 保存 token
   setToken(token, refreshToken) {
     // 拼接参数 token
-    let myToken = 'Bear ' + token
+    let myToken = 'Bearer ' + token
     // 保存到本地
     wx.setStorageSync('token', myToken)
     // 保存到应用中
