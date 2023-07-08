@@ -55,10 +55,19 @@ Page({
     })
   },
   // 完成登录逻辑
-  submitForm() {
+  async submitForm() {
     // 1. 验证参数的合法性
     if (!this.verifyMobile()) return
     if (!this.verifyCode()) return
+    // 2. 发送网络请求
+    const { code, mobile } = this.data
+    const { code: resCode, data } = await wx.http.post('/login', { code, mobile })
+    if (resCode !== 10000) return wx.utils.toast()
+    // 3. 保存 token （storage, app)
+    // 拼接 token
+    const token = 'Bearer ' + data.token
+    wx.setStorageSync('token', token)
+    getApp().token = token
 
   }
 })
