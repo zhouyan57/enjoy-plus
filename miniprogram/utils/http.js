@@ -21,6 +21,17 @@ http.intercept.request = (config) => {
 http.intercept.response = async ({ data, statusCode, config }) => {
   // 判断状态码是否为 401
   if (statusCode === 401) {
+    // 由于返回的 401 也有可能是 refreshToken 过期：判断请求的路径是否包含 refreshToken
+    if (config.url.includes('/refreshToken')) {
+      const pageStack = getCurrentPages()
+      const lastPage = pageStack[pageStack.length - 1]
+      const route = lastPage.route
+      // 跳转到登录页面
+      wx.redirectTo({
+        url: `/pages/login/index?redirectURL=${route}`
+      })
+      return
+    }
     // token 过期，需要请求延时的接口
     const { data } = await http({
       url: '/refreshToken',
