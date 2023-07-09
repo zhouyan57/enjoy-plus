@@ -9,5 +9,9 @@ Page({
     const { longitude, latitude } = await wx.getLocation()
     // 保存位置信息
     console.log(latitude, longitude);
+  },
+  async chooseLocation() {
+    const { longitude, latitude } = await wx.chooseLocation()
+    console.log(latitude, longitude);
   }
 })

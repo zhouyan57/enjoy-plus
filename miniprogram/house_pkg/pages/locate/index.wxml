@@ -2,7 +2,7 @@
   <view class="locate">
     <van-cell-group border="{{false}}" title="当前地点">
       <van-cell title="建材城西路9号" border="{{false}}">
-        <text class="enjoy-icon icon-locate">重新定位</text>
+        <text bindtap="chooseLocation" class="enjoy-icon icon-locate">重新定位</text>
       </van-cell>
     </van-cell-group>
     <van-cell-group border="{{false}}" title="附近社区">
