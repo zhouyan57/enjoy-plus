@@ -30,9 +30,9 @@ Page({
     }
   },
 
-  goDetail() {
+  goDetail(ev) {
     wx.navigateTo({
-      url: '/house_pkg/pages/detail/index',
+      url: '/house_pkg/pages/detail/index?id=' + ev.mark.id,
     })
   },
 
