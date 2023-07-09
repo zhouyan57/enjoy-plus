@@ -1,66 +1,34 @@
 // house_pkg/pages/room/index.ts
 Page({
-
-  /**
-   * 页面的初始数据
-   */
-  data: {
-
+  // 接收参数
+  onLoad({ point, building }) {
+    // 生成假数据
+    this.fake(point, building)
   },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide() {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload() {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh() {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage() {
-
+  fake(point, building) {
+    // 随机生成房间数量
+    const size = Math.floor(Math.random() * 20) + 1
+    // 定义一个房间的列表
+    const rooms = []
+    // 遍历生成
+    for (let i = 0; i < size; i++) {
+      // 生成楼层
+      const floor = Math.floor(Math.random() * 20) + 1
+      // 生成房间数
+      const no = Math.floor(Math.random() * 6) + 1
+      // 拼接房间号
+      const No = [floor, 0, no].join('')
+      // 判断房间号是否已经存在
+      const bool = rooms.some(item => item.No === No)
+      if (bool) continue
+      // 保存房间信息
+      rooms.push({
+        point,
+        building,
+        No,
+      })
+    }
+    // 保存房间列表
+    this.setData({ rooms })
   }
 })

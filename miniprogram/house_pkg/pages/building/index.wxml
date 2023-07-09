@@ -1,5 +1,5 @@
 <view class="building">
   <van-cell-group border="{{false}}">
-    <van-cell wx:for="{{size}}" wx:key="*this" title="{{point}}{{index + 1}}{{type}}" link-type="navigateTo" url="/house_pkg/pages/room/index" is-link />
+    <van-cell wx:for="{{size}}" wx:key="*this" title="{{point}}{{index + 1}}{{type}}" link-type="navigateTo" bindtap="goRoom" mark:building="{{index + 1}}{{type}}" is-link />
   </van-cell-group>
 </view>

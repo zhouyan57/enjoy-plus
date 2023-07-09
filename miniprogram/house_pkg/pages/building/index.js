@@ -17,5 +17,11 @@ Page({
     let type = size > 4 ? '号楼' : '栋'
     // 保存假数据
     this.setData({ size, type, point })
+  },
+  // 跳转到选择房间
+  goRoom(ev) {
+    wx.navigateTo({
+      url: `/house_pkg/pages/room/index?point=${this.data.point}&building=${ev.mark.building}`
+    })
   }
 })
