@@ -1,7 +1,7 @@
 <authorization>
   <view class="locate">
     <van-cell-group border="{{false}}" title="当前地点">
-      <van-cell title="建材城西路9号" border="{{false}}">
+      <van-cell title="{{address}}" border="{{false}}">
         <text bindtap="chooseLocation" class="enjoy-icon icon-locate">重新定位</text>
       </van-cell>
     </van-cell-group>
