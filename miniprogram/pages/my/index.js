@@ -4,7 +4,7 @@ Page({
       url: '/pages/login/index',
     })
   },
-  onLoad() {
+  onShow() {
     this.getUserInfo()
   },
   // 获取用户信息
