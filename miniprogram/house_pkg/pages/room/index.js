@@ -30,5 +30,12 @@ Page({
     }
     // 保存房间列表
     this.setData({ rooms })
+  },
+  // 跳转到 Form 页面
+  goForm(ev) {
+    let { point, building, No } = ev.mark.room
+    wx.navigateTo({
+      url: `/house_pkg/pages/form/index?point=${point}&building=${building}&room=${No}`
+    })
   }
 })

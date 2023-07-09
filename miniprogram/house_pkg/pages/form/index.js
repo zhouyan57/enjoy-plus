@@ -13,4 +13,8 @@ Page({
     const type = ev.mark?.type
     this.setData({ [type]: '' })
   },
+  // 接收参数
+  onLoad({ point, building, room }) {
+    this.setData({ point, building, room })
+  }
 })
