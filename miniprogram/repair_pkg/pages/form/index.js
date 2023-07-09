@@ -43,6 +43,13 @@ Page({
     if (code !== 10000) return wx.utils.toast()
     this.setData({ repairItem })
   },
+  // 选择维修项目后触发
+  selectRepairItem(ev) {
+    // 获取用户选择的维修项目名称
+    const { name: repairItemName } = ev.detail
+    // 页面中渲染
+    this.setData({ repairItemName })
+  },
   // 选中房屋选项的成员时，会触发
   selectHouse(ev) {
     this.setData({ houseInfo: ev.detail.name })
