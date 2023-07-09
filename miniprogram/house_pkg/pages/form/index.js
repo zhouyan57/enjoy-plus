@@ -3,8 +3,8 @@ Page({
     gender: 1,
     name: '',
     mobile: '',
-    idcardFrontUrl: '/static/images/avatar_1.jpg',
-    idcardBackUrl: '/static/images/avatar_2.jpg',
+    idcardFrontUrl: '',
+    idcardBackUrl: '',
   },
   goList() {
     wx.reLaunch({
@@ -60,5 +60,34 @@ Page({
     if (!this.verifyName()) return
     if (!this.verifyMobile()) return
     if (!this.verifyIdcard()) return
+  },
+  // 上传身份证照片
+  async uploadPicture(ev) {
+    // 选择图片
+    const res = await wx.chooseMedia({
+      count: 1,
+      mediaType: ['image'],
+      camera: 'back',
+    })
+    const filePath = res.tempFiles[0].tempFilePath
+    // 图片的上传
+    wx.uploadFile({
+      url: wx.http.baseURL + '/upload',
+      filePath,
+      name: 'file',
+      header: {
+        Authorization: getApp().token
+      },
+      success: (uploadRes) => {
+        // 返回的内容进行解析
+        let {
+          code,
+          data: { url }
+        } = JSON.parse(uploadRes.data)
+        if (code !== 10000) return wx.utils.toast('上传失败')
+        // 保存图片
+        this.setData({ [ev.mark.type]: url })
+      }
+    })
   }
 })

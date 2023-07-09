@@ -21,7 +21,7 @@
             <view class="image-remove" mark:type="idcardFrontUrl" bind:tap="removePicture">x</view>
             <image src="{{idcardFrontUrl}}"></image>
           </view>
-          <view class="upload-button" wx:else>
+          <view class="upload-button" wx:else bind:tap="uploadPicture" mark:type="idcardFrontUrl">
             <text class="enjoy-icon icon-add"></text>
             上传人像面照片
           </view>
@@ -31,7 +31,7 @@
             <view class="image-remove" mark:type="idcardBackUrl" bind:tap="removePicture">x</view>
             <image src="{{idcardBackUrl}}"></image>
           </view>
-          <view class="upload-button" wx:else>
+          <view class="upload-button" wx:else bind:tap="uploadPicture" mark:type="idcardBackUrl">
             <text class="enjoy-icon icon-add"></text>
             上传国徽面照片
           </view>
