@@ -17,8 +17,23 @@ Page({
     this.setData({ [type]: '' })
   },
   // 接收参数
-  onLoad({ point, building, room }) {
-    this.setData({ point, building, room })
+  onLoad({ point, building, room, id }) {
+    // id 存在：编辑房屋  无 id：新增房屋
+    if (id) {
+      // 修改页面标题
+      wx.setNavigationBarTitle({ title: '编辑房屋信息' })
+      // 根据 id 得到房屋信息
+      this.getHouseDetail(id)
+    } else {
+      this.setData({ point, building, room })
+    }
+  },
+  // 获取房屋详情
+  async getHouseDetail(id) {
+    const { code, data: houseDetail } = await wx.http.get('/room/' + id)
+    if (code !== 10000) return wx.utils.toast()
+    // 保存房屋信息
+    this.setData({ ...houseDetail })
   },
   // 当修改选中的单选框时会触发
   onChange(ev) {
@@ -63,11 +78,13 @@ Page({
 
     // 将 data 中的 __webviewId__ 删掉
     delete this.data.__webviewId__
+    // 将 data 中的 status 删掉
+    delete this.data.status
     // 将数据提交到服务器
     const { code } = await wx.http.post('/room', this.data)
     if (code !== 10000) return wx.utils.toast()
     // 返回到房屋管理页面
-    wx.navigateBack({ delta: 4 })
+    wx.navigateBack({ delta: this.data.id ? 2 : 4 })
   },
   // 上传身份证照片
   async uploadPicture(ev) {

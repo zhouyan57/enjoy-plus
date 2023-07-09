@@ -1,10 +1,12 @@
+let house_id
 Page({
   editHouse() {
     wx.navigateTo({
-      url: '/house_pkg/pages/form/index',
+      url: '/house_pkg/pages/form/index?id=' + house_id,
     })
   },
   onLoad({ id }) {
+    house_id = id
     // 根据 id 发送请求得到数据
     this.getHouseDetail(id)
   },
