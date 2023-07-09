@@ -5,7 +5,7 @@ Page({
     dialogVisible: false,
   },
 
-  async onLoad() {
+  async onShow() {
     try {
       this.getHouseList()
     } catch (err) {
@@ -16,7 +16,7 @@ Page({
     // 请求一个需要 token 的路径
     const { code, data: houseList } = await wx.http.get('/room')
     if (code !== 10000) return wx.utils.toast()
-    this.setData({ houseList })
+    this.setData({ houseList, isEmpty: houseList.length === 0 })
   },
   swipeClose(ev) {
     const { position, instance } = ev.detail
@@ -51,6 +51,9 @@ Page({
     if (code !== 10000) return wx.utils.toast()
     // 直接将 id 对应的数据从数据源中删除
     this.data.houseList.splice(house_index, 1) // 直接删没有响应式
-    this.setData({ houseList: this.data.houseList })
+    this.setData({
+      houseList: this.data.houseList,
+      isEmpty: this.data.houseList.length === 0
+    })
   }
 })
