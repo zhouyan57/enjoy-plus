@@ -24,7 +24,9 @@
     <text class="button-text">提交报修</text>
   </view>
 </authorization>
+<!-- 报修房屋 -->
 <van-action-sheet bind:select="selectHouse" bind:close="closeHouseLayer" bind:cancel="closeHouseLayer" round show="{{ houseLayerVisible }}" actions="{{ houseList }}" cancel-text="取消" title="选择报修房屋" />
+<!-- 维修项目 -->
 <van-action-sheet bind:close="closeRepairLayer" bind:cancel="closeRepairLayer" round show="{{ repairLayerVisible }}" actions="{{ repairItem }}" cancel-text="取消" title="选择维修项目" />
 <van-popup bind:close="closeDateLayer" round show="{{ dateLayerVisible }}" position="bottom">
   <van-datetime-picker type="date" value="{{ currentDate }}" min-date="{{ 1664582400000 }}" />

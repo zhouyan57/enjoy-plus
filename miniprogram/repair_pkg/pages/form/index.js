@@ -5,7 +5,7 @@ Page({
     repairLayerVisible: false,
     dateLayerVisible: false,
     houseList: [],
-    repairItem: [{ name: '水路卫浴' }, { name: '电路灯具' }, { name: '管道疏通' }, { name: '开锁换锁' }],
+    repairItem: [],
     fileList: [
       { url: '/repair_pkg/static/uploads/attachment.jpg' },
       { url: '/repair_pkg/static/uploads/attachment.jpg' },
@@ -15,6 +15,8 @@ Page({
   onLoad() {
     // 获取报修房屋的数据源
     this.getHouseList()
+    // 获取维修项目的数据源
+    this.getRepairItem()
   },
   // 获取报修房屋的数据源
   async getHouseList() {
@@ -34,6 +36,12 @@ Page({
       })
     }
     this.setData({ houseList })
+  },
+  // 获取维修项目的数据源
+  async getRepairItem() {
+    const { code, data: repairItem } = await wx.http.get('/repairItem')
+    if (code !== 10000) return wx.utils.toast()
+    this.setData({ repairItem })
   },
   // 选中房屋选项的成员时，会触发
   selectHouse(ev) {
