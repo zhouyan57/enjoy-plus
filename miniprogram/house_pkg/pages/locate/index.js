@@ -37,5 +37,11 @@ Page({
         this.setData({ points: data })
       }
     })
+  },
+  // 跳转到选择楼栋页面
+  goBuilding(e) {
+    wx.navigateTo({
+      url: `/house_pkg/pages/building/index?point=${e.mark.point}`
+    })
   }
 })
