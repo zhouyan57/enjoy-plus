@@ -16,5 +16,11 @@ Page({
   // 接收参数
   onLoad({ point, building, room }) {
     this.setData({ point, building, room })
+  },
+  // 当修改选中的单选框时会触发
+  onChange(ev) {
+    this.setData({
+      gender: ev.detail
+    })
   }
 })
