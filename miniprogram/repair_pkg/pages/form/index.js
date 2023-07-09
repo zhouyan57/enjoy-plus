@@ -1,6 +1,7 @@
 Page({
   data: {
     currentDate: new Date().getTime(),
+    appointment: '',
     houseLayerVisible: false,
     repairLayerVisible: false,
     dateLayerVisible: false,
@@ -42,6 +43,12 @@ Page({
     const { code, data: repairItem } = await wx.http.get('/repairItem')
     if (code !== 10000) return wx.utils.toast()
     this.setData({ repairItem })
+  },
+  selectDate(ev) {
+    this.setData({
+      dateLayerVisible: false,
+      appointment: wx.utils.formatDate(ev.detail)
+    })
   },
   // 选择维修项目后触发
   selectRepairItem(ev) {
