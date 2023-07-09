@@ -4,7 +4,7 @@
       <view class="houses">
         <view class="houses-title">房屋信息</view>
         <view class="houses-list">
-          <van-swipe-cell wx:for="{{houseList}}" wx:key="id" async-close bind:close="deleteHouse" right-width="{{ 70 }}">
+          <van-swipe-cell wx:for="{{houseList}}" wx:key="id" async-close bind:close="swipeClose" mark:id="{{item.id}}" mark:index="{{index}}" right-width="{{ 70 }}">
             <van-cell-group bind:tap="goDetail" mark:id="{{item.id}}" border="{{false}}">
               <van-cell size="large" title="{{item.point}}">
                 <text class="tag info" wx:if="{{item.status === 1}}">正在审核</text>
@@ -29,4 +29,4 @@
     <navigator hover-class="none" class="link" url=" ">添加</navigator>
   </view>
 </authorization>
-<van-dialog message="是否删除已绑定房屋？" showCancelButton show="{{dialogVisible}}" cancel-button-color="#848484" confirm-button-color="#5591af" bind:close="dialogClose" />
+<van-dialog bind:confirm="deleteHouse" message="是否删除已绑定房屋？" showCancelButton show="{{dialogVisible}}" cancel-button-color="#848484" confirm-button-color="#5591af" bind:close="dialogClose" />

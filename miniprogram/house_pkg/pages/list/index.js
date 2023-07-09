@@ -1,3 +1,5 @@
+let house_id
+let house_index
 Page({
   data: {
     dialogVisible: false,
@@ -24,6 +26,8 @@ Page({
       this.setData({
         dialogVisible: true,
       })
+      house_id = ev.mark.id
+      house_index = ev.mark.index
 
       // swiper-cell 滑块关闭
       instance.close()
@@ -41,4 +45,12 @@ Page({
       url: '/house_pkg/pages/locate/index',
     })
   },
+  // 根据 id 删除对应的房屋
+  async deleteHouse() {
+    const { code } = await wx.http.delete(`/room/${house_id}`)
+    if (code !== 10000) return wx.utils.toast()
+    // 直接将 id 对应的数据从数据源中删除
+    this.data.houseList.splice(house_index, 1) // 直接删没有响应式
+    this.setData({ houseList: this.data.houseList })
+  }
 })
