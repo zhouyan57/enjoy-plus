@@ -18,12 +18,23 @@ Page({
   },
   // 将经纬度转为位置描述
   getPoint(latitude, longitude) {
+    // 地址的逆解析
     qqMap.reverseGeocoder({
       location: [latitude, longitude].join(','),
       success: ({ result: { address } }) => {
         // 结果为当前所在的地址
         this.setData({ address })
         console.log(address);
+      }
+    })
+    // 搜索周边的：住宅小区
+    qqMap.search({
+      keyword: '住宅小区',
+      location: [latitude, longitude].join(','),
+      page_size: 5,
+      success: ({ data }) => {
+        // 保存数据
+        this.setData({ points: data })
       }
     })
   }
