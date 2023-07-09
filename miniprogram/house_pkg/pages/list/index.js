@@ -5,13 +5,17 @@ Page({
 
   async onLoad() {
     try {
-      // 目前该段代码只用于测试登录 请求一个需要 token 的路径
-      await wx.http.get('/room')
+      this.getHouseList()
     } catch (err) {
       wx.utils.toast(err.message)
     }
   },
-
+  async getHouseList() {
+    // 请求一个需要 token 的路径
+    const { code, data: houseList } = await wx.http.get('/room')
+    if (code !== 10000) return wx.utils.toast()
+    this.setData({ houseList })
+  },
   swipeClose(ev) {
     const { position, instance } = ev.detail
 
