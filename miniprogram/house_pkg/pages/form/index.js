@@ -55,11 +55,19 @@ Page({
     return valid
   },
   // 提交数据
-  submitForm() {
+  async submitForm() {
     // 校验数据
     if (!this.verifyName()) return
     if (!this.verifyMobile()) return
     if (!this.verifyIdcard()) return
+
+    // 将 data 中的 __webviewId__ 删掉
+    delete this.data.__webviewId__
+    // 将数据提交到服务器
+    const { code } = await wx.http.post('/room', this.data)
+    if (code !== 10000) return wx.utils.toast()
+    // 返回到房屋管理页面
+    wx.navigateBack({ delta: 4 })
   },
   // 上传身份证照片
   async uploadPicture(ev) {
