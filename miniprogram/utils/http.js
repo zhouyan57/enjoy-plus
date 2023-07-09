@@ -35,13 +35,24 @@ http.intercept.response = async ({ data, statusCode, config }) => {
     // 判断：是否存在 refreshToken
     if (!getApp().refreshToken) return Promise.reject(new Error('未登录'))
     // token 过期，需要请求延时的接口
-    const { data } = await http({
+    const { code, data } = await http({
       url: '/refreshToken',
       method: 'POST',
       header: {
         Authorization: getApp().refreshToken
       },
     })
+    if (code === 500) {
+      // 说明 refreshToken 失效了，需要重新跳转到登录页面
+      const pageStack = getCurrentPages()
+      const lastPage = pageStack[pageStack.length - 1]
+      const route = lastPage.route
+      // 跳转到登录页面
+      wx.redirectTo({
+        url: `/pages/login/index?redirectURL=${route}`
+      })
+      return
+    }
     const { token, refreshToken } = data
     // 保存 token 和 refreshToken
     getApp().setToken(token, refreshToken)
