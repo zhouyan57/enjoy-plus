@@ -17,6 +17,14 @@ Page({
     const { name: houseInfo } = ev.detail
     this.setData({ houseInfo })
   },
+  selectDate(ev) {
+    // 获取访客来访时间
+    this.setData({
+      dateLayerVisible: false,
+      visitDate: wx.utils.formatDate(ev.detail)
+    })
+
+  },
   openHouseLayer() {
     this.setData({ houseLayerVisible: true })
   },
