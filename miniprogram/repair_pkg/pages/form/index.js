@@ -76,14 +76,17 @@ Page({
   },
   // 选择维修项目后触发
   selectRepairItem(ev) {
-    // 获取用户选择的维修项目名称
-    const { name: repairItemName } = ev.detail
+    // 获取用户选择的维修项目名称 及 id
+    const { id: repairItemId, name: repairItemName } = ev.detail
     // 页面中渲染
-    this.setData({ repairItemName })
+    this.setData({ repairItemId, repairItemName })
   },
   // 选中房屋选项的成员时，会触发
   selectHouse(ev) {
-    this.setData({ houseInfo: ev.detail.name })
+    // 获取用户选择房屋的 id 和名称
+    const { id: houseId, name: houseInfo } = ev.detail
+    // 页面中渲染
+    this.setData({ houseId, houseInfo })
   },
   openHouseLayer() {
     this.setData({ houseLayerVisible: true })
