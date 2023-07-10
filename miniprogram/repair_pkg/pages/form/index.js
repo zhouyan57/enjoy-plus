@@ -7,10 +7,34 @@ Page({
     dateLayerVisible: false,
     houseList: [],
     repairItem: [],
-    fileList: [
-      { url: '/repair_pkg/static/uploads/attachment.jpg' },
-      { url: '/repair_pkg/static/uploads/attachment.jpg' },
-    ],
+    // fileList: [
+    //   { url: '/repair_pkg/static/uploads/attachment.jpg' },
+    //   { url: '/repair_pkg/static/uploads/attachment.jpg' },
+    // ],
+    // 保存上传后的图片列表
+    attachment: []
+  },
+  // 当在上传组件中选择图片后会触发的事件
+  afterRead(ev) {
+    const { file } = ev.detail
+    // 上传图片
+    wx.uploadFile({
+      url: wx.http.baseURL + '/upload',
+      name: 'file',
+      filePath: file.url,
+      header: {
+        Authorization: getApp().token
+      },
+      success: (res) => {
+        console.log(res);
+        const { code, data } = JSON.parse(res.data)
+        if (code !== 10000) return wx.utils.toast('上传图片失败')
+        this.data.attachment.push(data)
+        this.setData({
+          attachment: this.data.attachment
+        })
+      }
+    })
   },
   // 打开页面时要获取数据源
   onLoad() {
