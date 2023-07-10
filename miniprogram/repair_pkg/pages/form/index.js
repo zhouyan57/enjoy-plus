@@ -114,4 +114,44 @@ Page({
       url: '/repair_pkg/pages/list/index',
     })
   },
+  verifyHouse() {
+    const valid = this.data.houseId !== ''
+    // 验证结果提示
+    if (!valid) wx.utils.toast('请选择房屋信息!')
+    // 返回验证结果
+    return valid
+  },
+  verifyRepair() {
+    const valid = this.data.repairItemId !== ''
+    // 验证结果提示
+    if (!valid) wx.utils.toast('请选择维修项目!')
+    // 返回验证结果
+    return valid
+  },
+  verifyMobile() {
+    // 验证手机号
+    const reg = /^[1][3-8][0-9]{9}$/
+    const valid = reg.test(this.data.mobile.trim())
+    // 验证结果提示
+    if (!valid) wx.utils.toast('请填写正确的手机号码!')
+    // 返回验证结果
+    return valid
+  },
+  verifyDate() {
+    // 验证日期格式
+    const reg = /^\d{4}\/\d{2}\/\d{2}$/
+    const valid = reg.test(this.data.appointment)
+    // 验证结果提示
+    if (!valid) wx.utils.toast('请选择预约日期!')
+    // 返回验证结果
+    return valid
+  },
+  verifyDescription() {
+    // 验证报修项目描述
+    const valid = this.data.description.trim() !== ''
+    // 验证结果提示
+    if (!valid) wx.utils.toast('请填写问题描述!')
+    // 返回验证结果
+    return valid
+  },
 })
