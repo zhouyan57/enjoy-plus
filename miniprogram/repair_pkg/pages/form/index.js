@@ -37,11 +37,25 @@ Page({
     })
   },
   // 打开页面时要获取数据源
-  onLoad() {
+  onLoad({ id }) {
     // 获取报修房屋的数据源
     this.getHouseList()
     // 获取维修项目的数据源
     this.getRepairItem()
+    if (id) {
+      // 更新标题
+      wx.setNavigationBarTitle({ title: '修改报修信息' })
+      this.getRepairDetail(id)
+    }
+  },
+  async getRepairDetail(id) {
+    if (!id) return
+    // 请求数据接口
+    const { code, data: repairDetail } = await wx.http.get('/repair/' + id)
+    // 检测接口调用结果
+    if (code !== 10000) return wx.utils.toast('获取报修信息失败!')
+    // 渲染报修信息
+    this.setData({ ...repairDetail })
   },
   // 获取报修房屋的数据源
   async getHouseList() {
@@ -162,9 +176,10 @@ Page({
     if (!this.verifyDate()) return
     if (!this.verifyDescription()) return
     // 解构获取接口需要的参数
-    const { houseId, repairItemId, appointment, mobile, description, attachment } = this.data
+    const { id, houseId, repairItemId, appointment, mobile, description, attachment } = this.data
     // 请求数据接口
     const { code } = await wx.http.post('/repair', {
+      id,
       houseId,
       repairItemId,
       appointment,

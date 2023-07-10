@@ -32,4 +32,9 @@ Page({
       })
     }
   },
+  editRepair() {
+    wx.navigateTo({
+      url: '/repair_pkg/pages/form/index?id=' + this.data.id,
+    })
+  }
 })

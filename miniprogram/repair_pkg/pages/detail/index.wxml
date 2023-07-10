@@ -29,7 +29,7 @@
 </scroll-view>
 <!-- 只有受理中状态是才允许取消报修或修改报修 -->
 <view class="toolbar" wx:if="{{status === 1}}">
-  <view class="button-text active">修改信息</view>
+  <view class="button-text active" bind:tap="editRepair">修改信息</view>
   <view bind:tap="cancelRepair" class="button-text">取消报修</view>
 </view>
 <van-dialog message="是否要取消本次报修？" showCancelButton show="{{dialogVisible}}" cancel-button-color="#848484" confirm-button-color="#5591af" bind:close="dialogClose" />
