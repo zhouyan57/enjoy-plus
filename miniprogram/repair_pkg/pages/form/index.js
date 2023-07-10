@@ -154,4 +154,29 @@ Page({
     // 返回验证结果
     return valid
   },
+  async submitForm() {
+    // 逐个验证表单数据
+    if (!this.verifyHouse()) return
+    if (!this.verifyRepair()) return
+    if (!this.verifyMobile()) return
+    if (!this.verifyDate()) return
+    if (!this.verifyDescription()) return
+    // 解构获取接口需要的参数
+    const { houseId, repairItemId, appointment, mobile, description, attachment } = this.data
+    // 请求数据接口
+    const { code } = await wx.http.post('/repair', {
+      houseId,
+      repairItemId,
+      appointment,
+      mobile,
+      description,
+      attachment
+    })
+    // 检测接口请求的结果
+    if (code !== 10000) return wx.showToast({ title: '在线报修失败!', icon: 'none' })
+    // 跳转到表单列表页面
+    wx.redirectTo({
+      url: '/repair_pkg/pages/list/index',
+    })
+  }
 })
