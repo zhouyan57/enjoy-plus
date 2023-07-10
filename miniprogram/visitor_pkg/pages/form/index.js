@@ -2,12 +2,20 @@ Page({
   data: {
     dateLayerVisible: false,
     houseLayerVisible: false,
-    houseList: [
-      { name: '北京西三旗花园1号楼 101' },
-      { name: '北京东村家园3号楼 302' },
-      { name: '北京育新花园3号楼 703' },
-      { name: '北京天通苑北苑8号楼 403' },
-    ],
+    houseList: [],
+  },
+  onLoad() {
+    // 获取房屋列表
+    this.getHouseList()
+  },
+  async getHouseList() {
+    const { code, data: houseList } = await wx.http.get('/house')
+    if (code !== 10000) return wx.utils.toast('获取房屋列表失败!')
+    this.setData({ houseList })
+  },
+  selectHouse(ev) {
+    const { name: houseInfo } = ev.detail
+    this.setData({ houseInfo })
   },
   openHouseLayer() {
     this.setData({ houseLayerVisible: true })
